@@ -171,3 +171,9 @@ D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\bac
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\backend.pdb
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\ref\backend.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

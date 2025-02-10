@@ -2,6 +2,8 @@
 using backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace backend.Controllers
 {
@@ -24,13 +26,21 @@ namespace backend.Controllers
                 return BadRequest("No file uploaded.");
             }
 
+            // Validate file type
+            var allowedTypes = new[] { "application/pdf", "text/plain", "image/jpeg", "image/png", "image/gif" };
+            if (!allowedTypes.Contains(file.ContentType))
+            {
+                return BadRequest("Invalid file type. Only PDF, text, and image files are allowed.");
+            }
+
             using (var memoryStream = new MemoryStream())
             {
                 await file.CopyToAsync(memoryStream);
                 var uploadedFile = new UploadedFile
                 {
                     FileName = file.FileName,
-                    FileData = memoryStream.ToArray()
+                    FileData = memoryStream.ToArray(),
+                    FileType = file.ContentType // Save the file type
                 };
 
                 _context.UploadedFiles.Add(uploadedFile);

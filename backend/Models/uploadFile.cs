@@ -1,18 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace backend.Models
+﻿namespace backend.Models
 {
     public class UploadedFile
     {
-        [Key]
-        public int FileId { get; set; }
-
-        [Required]
+        public int Id { get; set; }
         public string FileName { get; set; }
-
-        [Required]
-        public byte[] FileData { get; set; } // Stores the file in binary format
-
-        public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
+        public byte[] FileData { get; set; }
+        public string FileType { get; set; } // Add this property
     }
 }

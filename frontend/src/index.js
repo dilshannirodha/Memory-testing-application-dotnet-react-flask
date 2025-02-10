@@ -1,11 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import { createRoot } from "react-dom/client"; // Import createRoot
+import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
+import App from "./App";
+import "./index.css"; // Import Tailwind CSS or other styles
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Get the root element
+const container = document.getElementById("root");
+
+// Create a root
+const root = createRoot(container);
+
+// Render the app
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

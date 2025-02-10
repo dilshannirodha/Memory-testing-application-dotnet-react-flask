@@ -3,6 +3,7 @@ from flask_cors import CORS
 import fitz  # PyMuPDF for PDF text extraction
 import requests
 import io
+import google.generativeai as genai
 
 
 app = Flask(__name__)
@@ -22,64 +23,57 @@ def extract_text(file_id):
 
     return jsonify({"file_id": file_id, "extracted_text": extracted_text})
 
-# Ollama API endpoint
-OLLAMA_API_URL = "http://localhost:11434/api/generate"
+
+# Configure Gemini API Key
+genai.configure(api_key="AIzaSyB2uuD4ibj4isIoA_QkdsyIKdccNhAP05g")
+#gemini api 
+model = genai.GenerativeModel("gemini-pro")
 
 @app.route('/generate', methods=['POST'])
 def generate_text():
-    # Get the input text from the request
     data = request.json
-    prompt = data.get('prompt', '')
+    prompt = data.get("prompt", "")
 
     if not prompt:
-        return jsonify({"error": "No prompt provided"}), 400
+        return jsonify({"error": "Prompt is required"}), 400
 
-    # Prepare the payload for Ollama API
-    payload = {
-        "model": "mistral",  # Replace with the model you want to use
-        "prompt": prompt,
-        "stream": False  # Set to True if you want streaming responses
-    }
-
-    # Send a POST request to Ollama API
-    response = requests.post(OLLAMA_API_URL, json=payload)
-
-    if response.status_code == 200:
-        # Parse the response
-        result = response.json()
-        return jsonify(result)
-    else:
-        return jsonify({"error": "Failed to generate text"}), 500
+    try:
+        response = model.generate_content(prompt)
+        return jsonify({"generated_text": response.text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 @app.route('/summarize', methods=['POST'])
 def summarize_text():
-    # Get the input text from the request
     data = request.json
-    text = data.get('text', '')
+    text = data.get("text", "")
 
     if not text:
-        return jsonify({"error": "No text provided"}), 400
+        return jsonify({"error": "Text is required"}), 400
 
-    # Prepare the prompt for summarization
-    prompt = f"Summarize the following text:\n\n{text}\n\nSummary:"
+    try:
+        prompt = f"Summarize the following text:\n\n{text}"
+        response = model.generate_content(prompt)
+        return jsonify({"summary": response.text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/classify', methods=['POST'])
+def classify_text():
+    data = request.json
+    text = data.get("text", "")
 
-    # Prepare the payload for Ollama API
-    payload = {
-        "model": "mistral",  # Use the Mistral model
-        "prompt": prompt,
-        "stream": False  # Set to True if you want streaming responses
-    }
+    if not text:
+        return jsonify({"error": "Text is required"}), 400
 
-    # Send a POST request to Ollama API
-    response = requests.post(OLLAMA_API_URL, json=payload)
-
-    if response.status_code == 200:
-        # Parse the response
-        result = response.json()
-        summary = result.get("response", "").strip()
-        return jsonify({"summary": summary})
-    else:
-        return jsonify({"error": "Failed to summarize text"}), 500
-
+    try:
+        # Use Gemini API to classify the text
+        prompt = f"Classify the following text into one of the following topics: Technology, Health, Finance, Education, Entertainment, Sports, Politics, or Other. Text:\n\n{text}"
+        response = model.generate_content(prompt)
+        return jsonify({"topic": response.text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
+    
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

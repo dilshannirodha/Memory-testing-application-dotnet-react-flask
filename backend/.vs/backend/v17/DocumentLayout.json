@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Migrations\\20250210195915_InitialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250210195915_InitialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|d:\\github projects\\finalyearproject--memory-recaller-app-dotnet-react-python\\backend\\controllers\\filecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|solutionrelative:controllers\\filecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|d:\\github projects\\finalyearproject--memory-recaller-app-dotnet-react-python\\backend\\controllers\\fileuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|solutionrelative:controllers\\fileuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|d:\\github projects\\finalyearproject--memory-recaller-app-dotnet-react-python\\backend\\models\\uploadfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|solutionrelative:models\\uploadfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2949AC3-C136-4B75-B5A0-8FB370F78B11}|backend.csproj|d:\\github projects\\finalyearproject--memory-recaller-app-dotnet-react-python\\backend\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,32 +35,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20250210195915_InitialMigration.cs",
+              "DocumentMoniker": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Migrations\\20250210195915_InitialMigration.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250210195915_InitialMigration.cs",
+              "ToolTip": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Migrations\\20250210195915_InitialMigration.cs",
+              "RelativeToolTip": "Migrations\\20250210195915_InitialMigration.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-10T19:59:15.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "uploadFile.cs",
+              "DocumentMoniker": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Models\\uploadFile.cs",
+              "RelativeDocumentMoniker": "Models\\uploadFile.cs",
+              "ToolTip": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Models\\uploadFile.cs",
+              "RelativeToolTip": "Models\\uploadFile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-10T19:56:56.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "FileController.cs",
               "DocumentMoniker": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Controllers\\FileController.cs",
               "RelativeDocumentMoniker": "Controllers\\FileController.cs",
               "ToolTip": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Controllers\\FileController.cs",
               "RelativeToolTip": "Controllers\\FileController.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAuwCgAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCgAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-08T11:46:28.9Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "FileUploadController.cs",
               "DocumentMoniker": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Controllers\\FileUploadController.cs",
               "RelativeDocumentMoniker": "Controllers\\FileUploadController.cs",
               "ToolTip": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Controllers\\FileUploadController.cs",
               "RelativeToolTip": "Controllers\\FileUploadController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAmwDQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-08T10:41:30.533Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\github projects\\finalYearProject--memory-recaller-app-dotnet-react-python\\backend\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
