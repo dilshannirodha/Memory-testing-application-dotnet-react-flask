@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import AppContext from "../contexts/AppContext"; // Import the context
+import AppContext from "../contexts/AppContext"; 
 
 const Countdown = () => {
-  const { time, start } = useContext(AppContext); // Get the selected time and start state from context
-  const [secondsRemaining, setSecondsRemaining] = useState(time * 60); // Convert minutes to seconds
+  const { time, start } = useContext(AppContext); 
+  const [secondsRemaining, setSecondsRemaining] = useState(time * 60); 
 
-  // Start the countdown when start is true
   useEffect(() => {
-    if (!start || secondsRemaining <= 0) return; // Stop if start is false or countdown is complete
+    if (!start || secondsRemaining <= 0) return; 
 
     const interval = setInterval(() => {
-      setSecondsRemaining((prevSeconds) => prevSeconds - 1); // Decrease the time by 1 second
+      setSecondsRemaining((prevSeconds) => prevSeconds - 1);
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup the interval on unmount
+    return () => clearInterval(interval); 
   }, [start, secondsRemaining]);
 
-  // Format the time as MM:SS
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;

@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import AppContext from "../contexts/AppContext";
+import AppContext from "../contexts/AppContext"; // Import your AppContext
 
-const FileUpload = () => {
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { setImages } = useContext(AppContext); // Use context to set images
+const ImageUpload = () => {
+  const [file, setFile] = useState(null); // State to store the uploaded file
+  const [loading, setLoading] = useState(false); // State to handle loading state
+  const { setText } = useContext(AppContext); // Use context to set extracted text
 
   // Handle file upload
   const handleFileUpload = (e) => {
@@ -16,7 +16,7 @@ const FileUpload = () => {
   // Submit the uploaded file to the backend
   const handleFileSubmit = async () => {
     if (!file) {
-      alert("Please select a PDF file.");
+      alert("Please select an image file.");
       return;
     }
 
@@ -31,10 +31,10 @@ const FileUpload = () => {
         },
       });
 
-      if (response.data.images) {
-        setImages(response.data.images); // Update the context with the new images
+      if (response.data.text) {
+        setText(response.data.text); // Set the extracted text to the context
       } else {
-        alert(response.data.error || "Error processing PDF.");
+        alert("No text was extracted from the image.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -45,12 +45,12 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="p-6  min-h-screen flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-center mb-6">PDF Upload</h1>
-      <div className="bg-white p-8 rounded-lg  w-full max-w-md">
+    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-center mb-6">Image Upload</h1>
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <input
           type="file"
-          accept="application/pdf"
+          accept="image/*" // Allow only image files
           onChange={handleFileUpload}
           className="mb-4 w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -61,11 +61,11 @@ const FileUpload = () => {
             loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
           } focus:outline-none focus:ring-2 focus:ring-blue-500`}
         >
-          {loading ? "Processing..." : "Upload PDF"}
+          {loading ? "Processing..." : "Upload Image"}
         </button>
       </div>
     </div>
   );
 };
 
-export default FileUpload;
+export default ImageUpload;

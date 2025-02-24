@@ -56,10 +56,10 @@ const TimeSelector = () => {
                 onChange={handleOptionChange}
                 className="form-radio h-5 w-5 text-blue-600"
               />
-              <span className="ml-2 text-gray-700">Custom Time</span>
+              <span className="ml-2 text-gray-700">Free Time</span>
             </label>
           </div>
-
+          {selectedOption === 'custom' && setTime(100)}
           {/* Fixed Time Dropdown */}
           {selectedOption === "fixed" && (
             <div className="flex flex-col space-y-2">
@@ -69,30 +69,16 @@ const TimeSelector = () => {
                 onChange={handleFixedTimeChange}
                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
+                <option value="1">1 minutes</option>
+                <option value="2">2 minutes</option>
+                <option value="3">3 minutes</option>
                 <option value="5">5 minutes</option>
                 <option value="10">10 minutes</option>
-                <option value="15">15 minutes</option>
-                <option value="30">30 minutes</option>
               </select>
             </div>
           )}
 
-          {/* Custom Time Input */}
-          {selectedOption === "custom" && (
-            <div className="flex flex-col space-y-2">
-              <label className="text-gray-700">Enter Custom Time (minutes):</label>
-              <input
-                type="number"
-                value={customTime}
-                onChange={handleCustomTimeChange}
-                placeholder="Enter time in minutes"
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                min="1"
-                required
-              />
-            </div>
-          )}
-
+          
           {/* Submit Button */}
           <button
             type="submit"

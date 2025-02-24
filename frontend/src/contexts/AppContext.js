@@ -4,15 +4,18 @@ const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const [time, setTime] = useState(0);
-  const [option, setOption ] = useState("all");
-  const [start, setStart] = useState(false);
-  
+  const [start, setStart] = useState(true);
+  const [text, setText ] = useState("");
+  const [images, setImages] = useState([])
+  const [messages, setMessages] = useState([]);
 
   return (
     <AppContext.Provider value={{ 
         time, setTime,
-        option, setOption,
-        start, setStart
+        start, setStart,
+        text, setText,
+        images,setImages,
+        messages, setMessages
         
         }}>
       {children}

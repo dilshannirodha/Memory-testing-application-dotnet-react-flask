@@ -18,9 +18,9 @@ const App = () => {
       <div className="ml-64 p-6 flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/ask-ai" component={AskAI} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/logout" component={Logout} />
+          <Route path="/ask-ai" element={<AskAI />} />
+          <Route path="/profile" element={<Profile />}/>
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </div>
     </div>

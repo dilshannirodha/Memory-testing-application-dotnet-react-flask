@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FileUpload from "../components/FileUpload";
 import TextInput from "../components/TextInput";
+import ImageUpload from "./ImageUpload";
 
 const SelectMaterial = () => {
   const [mode, setMode] = useState("file"); // State to track the selected mode
@@ -21,7 +22,17 @@ const SelectMaterial = () => {
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           } transition duration-300`}
         >
-          Upload File
+          Upload PDF
+        </button>
+        <button
+          onClick={() => setMode("image")}
+          className={`px-4 py-2 rounded-md ${
+            mode === "image"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          } transition duration-300`}
+        >
+          Upload Image
         </button>
         <button
           onClick={() => setMode("text")}
@@ -36,7 +47,9 @@ const SelectMaterial = () => {
       </div>
 
       {/* Display the Relevant Component */}
-      {mode === "file" ? <FileUpload /> : <TextInput />}
+      {mode === "file" && <FileUpload />}
+      {mode === "text" && <TextInput />}
+      {mode === "image" && <ImageUpload />}
     </div>
   );
 };

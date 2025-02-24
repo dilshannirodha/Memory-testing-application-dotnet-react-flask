@@ -1,42 +1,33 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import AppContext from "../contexts/AppContext"; // Import the context
 
 const SummarizeText = () => {
-  const [text, setText] = useState("");
-  const [summary, setSummary] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { option, summary } = useContext(AppContext); // Get `option` and `summary` from context
 
-  const handleSummarize = async () => {
-    if (!text) return alert("Please enter text to summarize.");
-    
-    setLoading(true);
-    try {
-      const response = await axios.post("http://localhost:5001/summarize-text", { text });
-      setSummary(response.data.summary);
-    } catch (error) {
-      console.error("Error summarizing text:", error);
-      setSummary("Failed to generate summary.");
-    }
-    setLoading(false);
-  };
+  // Only render this component if `option` is set to "summary"
+  if (option !== "summary") {
+    return null; // Don't render anything if option is not "summary"
+  }
 
   return (
-    <div>
-      <h2>Summarize Text</h2>
-      <textarea
-        rows="5"
-        cols="50"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter text to summarize..."
-      />
-      <br />
-      <button onClick={handleSummarize} disabled={loading}>
-        {loading ? "Summarizing..." : "Summarize"}
-      </button>
-      <h3>Summary:</h3>
-      <p>{summary}</p>
-    </div>
+
+      <div className="bg-white p-8 rounded-lg w-full max-w-lg ">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+          Summarized Text
+        </h2>
+
+        {/* Render the summary only if it exists */}
+        {summary ? (
+          <div className="mt-6">
+            <p className="whitespace-pre-wrap bg-gray-100 p-4 rounded-md text-gray-700">
+              {summary}
+            </p>
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center mt-4">No summary available.</p>
+        )}
+      </div>
+
   );
 };
 

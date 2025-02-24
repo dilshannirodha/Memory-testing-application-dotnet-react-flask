@@ -55,7 +55,7 @@ const TextInput = () => {
           value={text}
           onChange={handleTextChange}
           placeholder="Enter your text here..."
-          className="w-full h-96 p-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+          className="w-full h-96 p-4 border border-gray-300 rounded-md resize-none outline-none text-lg"
         />
 
         {/* Upload Button */}
