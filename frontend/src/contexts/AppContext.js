@@ -8,15 +8,33 @@ export const AppContextProvider = ({ children }) => {
   const [text, setText ] = useState("");
   const [images, setImages] = useState([])
   const [messages, setMessages] = useState([]);
-
+  const [showTimer, setShowTimer] = useState(false);
+  const [showPDF, setShowPDF ] = useState(false);
+  const [selectpdf, setSelectpdf] = useState(false);
+  const [showStartComponent, setShowStartComponent] = useState(true);
+  const [showButtons, setShowButtons] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [showAnswerComponent, setShowAnswerComponent] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [userAnswer,setUserAnswer] = useState("");
   return (
     <AppContext.Provider value={{ 
         time, setTime,
         start, setStart,
         text, setText,
         images,setImages,
-        messages, setMessages
-        
+        messages, setMessages,
+       showTimer, setShowTimer,
+       showPDF, setShowPDF,
+       selectpdf, setSelectpdf,
+       showStartComponent, setShowStartComponent,
+      showButtons, setShowButtons,
+      selected, setSelected,
+      showAnswerComponent, setShowAnswerComponent,
+      finished, setFinished,
+      submitted, setSubmitted,
+      userAnswer, setUserAnswer
         }}>
       {children}
     </AppContext.Provider>

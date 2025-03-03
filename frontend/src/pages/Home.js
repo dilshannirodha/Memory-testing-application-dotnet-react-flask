@@ -8,69 +8,76 @@ import OcrComponent from "../components/OcrComponent";
 import SummarizeText from "../components/SummarizeText";
 import PDFViewer from "../components/PDFViewer";
 import AnswerComponent from "../components/AnswerComponent";
-
+import StartComponent from "../components/StartComponent";
+import Evaluation from "../components/Evaluation";
 const Home = () => {
-  const { images, text, start, setStart, time } = useContext(AppContext);
-  const [showPDF, setShowPDF ] = useState(false);
-  const [showAnswerComponent, setShowAnswerComponent] = useState(false);
-  const [showTimer, setShowTimer] = useState(false);
- 
+  const {setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setShowTimer,showTimer,images, text, start, setStart, time } = useContext(AppContext);
+  
+
+
   const startReading = () =>{
     setStart(true);
+    setShowAnswerComponent(false);
+    setSelectpdf(false);
     setShowPDF(true);
-    setShowTimer(true);
+   
     
   }
-  const finishReading = () =>{
-    setStart(false);
-    setShowAnswerComponent(true);
-  }
+ 
   const uploadMaterial = () =>{
-
+    setStart(false);
+    setSelectpdf(true);
+    setShowPDF(false);
+    setShowTimer(false);
+    setShowAnswerComponent(false);
+    setSubmitted(false);
+    setFinished(false);
   }
 
-  const evaluate = () => {
-
+ 
+   
+  const readAgain = () => {
+    setShowPDF(true);
+    setShowAnswerComponent(false);
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" style={{ backgroundImage: "url('/path-to-image.jpg')"}}>
       {/* Main Content */}
       <div className="flex-1 p-4">
-        {/* Display text and time from context */}
-        <div className="mb-4">
-          <p className="text-lg font-semibold">Text: {text}</p>
-          <p className="text-lg font-semibold">Time: {time}</p>
-        </div>
 
         {/* Components */}
-        <SelectMaterial />
-        <PDFViewer />
-        <TimeSelector />
-        <AnswerComponent />
+        {showStartComponent && (<StartComponent />)}
+        { selectpdf && ( <SelectMaterial />)}
+        { showPDF && ( <PDFViewer />)}
+       { showTimer && (<TimeSelector />) }
+        {showAnswerComponent && ( <AnswerComponent />)}
+        {submitted && (<Evaluation/>)}
       </div>
 
       {/* Fixed Buttons at the Bottom */}
-      <div className="fixed bottom-0  p-4">
+      {showButtons && (
+        <div className="fixed bottom-0  p-4">
         <div className="flex gap-4 justify-center">
-          <button
+          
+          {!selected  && (
+            <button
             className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             onClick={startReading} // Example functionality
           >
             Start Reading
           </button>
-          <button
-            className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
-            onClick={finishReading} // Example functionality
-          >
-            Finish Reading
-          </button>
-          <button
+          )}
+          {finished && (
+            <button
             className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-            onClick={evaluate} // Example functionality
+            onClick={readAgain} // Example functionality
           >
-            Evaluate
+            Back to read
           </button>
+          ) 
+          }
+          
           <button
             className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             onClick={uploadMaterial} // Example functionality
@@ -78,7 +85,9 @@ const Home = () => {
             Upload Material
           </button>
         </div>
-      </div>
+        </div>
+      )}
+      
     </div>
   );
 };

@@ -15,7 +15,11 @@ const App = () => {
       <Navbar />
   
       {/* Main Content */}
-      <div className="ml-64 p-6 flex-grow">
+      <div className="ml-64 p-6 flex-grow "
+      style={{
+        backgroundColor: "", // Midnight Owl color
+      }}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ask-ai" element={<AskAI />} />

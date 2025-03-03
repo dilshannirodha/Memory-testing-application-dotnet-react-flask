@@ -21,7 +21,10 @@ CORS(app)
 # Configure Gemini API Key
 genai.configure(api_key="AIzaSyB2uuD4ibj4isIoA_QkdsyIKdccNhAP05g")
 #gemini api 
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel("gemini-1.5-pro")
+models = genai.list_models()
+for m in models:
+    print(m.name)
 
 @app.route('/generate', methods=['POST'])
 def generate_text():
@@ -37,38 +40,40 @@ def generate_text():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-
-@app.route('/summarize', methods=['POST'])
-def summarize_text():
+@app.route('/compare', methods=['POST'])
+def compare_answer():
     data = request.json
-    text = data.get("text", "")
+    study_material = data.get("study_material", "")
+    user_answer = data.get("user_answer", "")
 
-    if not text:
-        return jsonify({"error": "Text is required"}), 400
+    if not study_material or not user_answer:
+        return jsonify({"error": "Study material and user answer are required"}), 400
 
     try:
-        prompt = f"Summarize the following text:\n\n{text}"
+        prompt = f"""
+        Compare the following user answer with the provided study material.
+        - Identify missing or incorrect details.
+        - Provide a similarity score from 0 to 100.
+        - Offer constructive feedback on how the user can improve.
+
+        Study Material:
+        {study_material}
+
+        User Answer:
+        {user_answer}
+
+        Response format:
+        - Similarity Score: (numeric)
+        - Missing Information: (text)
+        - Feedback: (text)
+        """
+
         response = model.generate_content(prompt)
-        return jsonify({"summary": response.text})
+
+        return jsonify({"comparison_result": response.text})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-@app.route('/classify', methods=['POST'])
-def classify_text():
-    data = request.json
-    text = data.get("text", "")
-
-    if not text:
-        return jsonify({"error": "Text is required"}), 400
-
-    try:
-        # Use Gemini API to classify the text
-        prompt = f"Classify the following text into one of the following topics: Technology, Health, Finance, Education, Entertainment, Sports, Politics, or Other. Text:\n\n{text}"
-        response = model.generate_content(prompt)
-        return jsonify({"topic": response.text})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500 
-    
 
 
 

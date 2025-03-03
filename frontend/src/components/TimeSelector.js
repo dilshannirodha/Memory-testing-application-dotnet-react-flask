@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import AppContext from "../contexts/AppContext"; // Import the context
 
 const TimeSelector = () => {
-  const { setTime } = useContext(AppContext); // Use the context to set the time
+  const { setShowPDF,setTime, setShowTimer} = useContext(AppContext); // Use the context to set the time
   const [customTime, setCustomTime] = useState(""); // State for custom time input
   const [selectedOption, setSelectedOption] = useState("fixed"); // State for selected option (fixed or custom)
   const [fixedTime, setFixedTime] = useState("5"); // State for fixed time selection
@@ -28,6 +28,11 @@ const TimeSelector = () => {
     const time = selectedOption === "fixed" ? fixedTime : customTime;
     setTime(time); // Update the time in the context
   };
+
+  const timer = () =>{
+    setShowTimer(!setShowTimer);
+    setShowPDF(true);
+  }
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg">
@@ -59,7 +64,7 @@ const TimeSelector = () => {
               <span className="ml-2 text-gray-700">Free Time</span>
             </label>
           </div>
-          {selectedOption === 'custom' && setTime(100)}
+          {selectedOption === 'custom' && setTime(1000)}
           {/* Fixed Time Dropdown */}
           {selectedOption === "fixed" && (
             <div className="flex flex-col space-y-2">
@@ -81,6 +86,7 @@ const TimeSelector = () => {
           
           {/* Submit Button */}
           <button
+            onClick={timer}
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
           >
