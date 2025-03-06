@@ -50,7 +50,7 @@ const ImageUpload = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <input
           type="file"
-          accept="image/*" // Allow only image files
+          accept="image/*" 
           onChange={handleFileUpload}
           className="mb-4 w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />

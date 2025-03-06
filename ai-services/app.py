@@ -1,6 +1,6 @@
 from flask import Flask, jsonify , request
 from flask_cors import CORS
-import fitz  # PyMuPDF for PDF text extraction
+import fitz 
 import requests
 import io
 import google.generativeai as genai
@@ -15,12 +15,9 @@ from pdf2image import convert_from_path
 
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
-
-# Configure Gemini API Key
 genai.configure(api_key="AIzaSyB2uuD4ibj4isIoA_QkdsyIKdccNhAP05g")
-#gemini api 
 model = genai.GenerativeModel("gemini-1.5-pro")
 models = genai.list_models()
 for m in models:
@@ -75,11 +72,7 @@ def compare_answer():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
-
 @app.route('/api/ocr', methods=['POST'])
 def ocr():
     if 'file' not in request.files:
@@ -91,19 +84,18 @@ def ocr():
     file_extension = file.filename.split('.')[-1].lower()
 
     try:
-        # Check for text files
         if file_extension == 'txt':
             text = extract_text_from_txt(file)
             return jsonify({'text': text})
 
         if file_extension == 'pdf':
-            temp_dir = tempfile.mkdtemp()  # Create a temporary directory
+            temp_dir = tempfile.mkdtemp() 
             temp_file_path = os.path.join(temp_dir, file.filename)
             file.save(temp_file_path)
 
-            images = convert_pdf_to_images(temp_file_path)  # Pass the file path
+            images = convert_pdf_to_images(temp_file_path) 
 
-            shutil.rmtree(temp_dir)  # Delete the temporary directory
+            shutil.rmtree(temp_dir)   
 
             return jsonify({'images': images})
         
@@ -138,13 +130,11 @@ def convert_pdf_to_images(pdf_path):
         images = convert_from_path(pdf_path, poppler_path=r'C:/poppler-24.08.0/Library/bin')
         image_urls = []
 
-        # Save each page as a separate image and store the paths
         for i, image in enumerate(images):
             image_filename = f"page_{i + 1}.png"
             image_path = os.path.join(image_folder, image_filename)
             image.save(image_path, 'PNG')
 
-            # Construct the URL to access the image from the frontend
             image_url = f"/static/pdf_images/{image_filename}"
             image_urls.append(image_url)
 
@@ -160,7 +150,6 @@ def cleanup_images():
         if not os.path.exists(image_folder):
             return jsonify({'message': 'Image folder does not exist or is already clean.'}), 200
 
-        # Loop through the files in the directory and delete them
         for filename in os.listdir(image_folder):
             file_path = os.path.join(image_folder, filename)
             if os.path.isfile(file_path):
