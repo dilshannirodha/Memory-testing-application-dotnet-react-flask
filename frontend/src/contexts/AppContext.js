@@ -18,6 +18,7 @@ export const AppContextProvider = ({ children }) => {
   const [finished, setFinished] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [userAnswer,setUserAnswer] = useState("");
+  const [evaluation, setEvaluation ]  = useState();
   return (
     <AppContext.Provider value={{ 
         time, setTime,
@@ -34,7 +35,8 @@ export const AppContextProvider = ({ children }) => {
       showAnswerComponent, setShowAnswerComponent,
       finished, setFinished,
       submitted, setSubmitted,
-      userAnswer, setUserAnswer
+      userAnswer, setUserAnswer,
+      evaluation, setEvaluation
         }}>
       {children}
     </AppContext.Provider>

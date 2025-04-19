@@ -7,7 +7,7 @@ import AnswerComponent from "../components/AnswerComponent";
 import StartComponent from "../components/StartComponent";
 import Evaluation from "../components/Evaluation";
 const Home = () => {
-  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setShowTimer,showTimer,images, text, start, setStart, time } = useContext(AppContext);
+  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setShowTimer,showTimer, setStart} = useContext(AppContext);
   
 
 
@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundImage: "url('/path-to-image.jpg')"}}>
       
-      <div className="flex-1 p-4">
+      <div className="flex">
 
         
         {showStartComponent && (<StartComponent />)}

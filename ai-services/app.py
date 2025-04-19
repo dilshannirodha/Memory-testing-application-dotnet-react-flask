@@ -1,4 +1,4 @@
-from flask import Flask, jsonify , request
+from flask import Flask, jsonify , request 
 from flask_cors import CORS
 import fitz 
 import requests
@@ -11,6 +11,7 @@ import base64
 import tempfile
 import os
 import shutil
+import json
 from pdf2image import convert_from_path
 
 
@@ -48,26 +49,61 @@ def compare_answer():
 
     try:
         prompt = f"""
-        Compare the following user answer with the provided study material.
-        - Identify missing or incorrect details.
-        - Provide a similarity score from 0 to 100.
-        - Offer constructive feedback on how the user can improve.
-
+        Perform a comprehensive evaluation of the user's answer against the study material.
+        Provide numeric scores (0-100) for each of the following criteria:
+        
+        Evaluation Criteria:
+        1. Content Accuracy (Weight: 30%): How factually correct the answer is
+        2. Coverage (Weight: 25%): Percentage of key points covered
+        3. Clarity (Weight: 15%): How clearly ideas are expressed
+        4. Structure (Weight: 10%): Logical organization of information
+        5. Terminology (Weight: 10%): Proper use of technical terms
+        6. Originality (Weight: 10%): Demonstration of independent thought
+        
         Study Material:
         {study_material}
 
         User Answer:
         {user_answer}
 
-        Response format:
-        - Similarity Score: (numeric)
-        - Missing Information: (text)
-        - Feedback: (text)
+        Response Format (JSON):
+        {{
+            "overall_score": 0-100,
+            "detailed_scores": {{
+                "content_accuracy": 0-100,
+                "coverage": 0-100,
+                "clarity": 0-100,
+                "structure": 0-100,
+                "terminology": 0-100,
+                "originality": 0-100
+            }},
+            "missing_key_points": ["list", "of", "missing", "concepts"],
+            "incorrect_statements": ["list", "of", "errors"],
+            "strengths": ["list", "of", "what", "was", "done", "well"],
+            "suggestions": ["specific", "improvement", "suggestions"],
+            "comparison_breakdown": "Detailed textual analysis"
+        }}
         """
 
         response = model.generate_content(prompt)
 
-        return jsonify({"comparison_result": response.text})
+        cleaned_response = response.text.strip()
+        if cleaned_response.startswith('```json'):
+            cleaned_response = cleaned_response[7:]  # Remove ```json
+        if cleaned_response.endswith('```'):
+            cleaned_response = cleaned_response[:-3]  # Remove ```
+        cleaned_response = cleaned_response.strip()
+        
+        try:
+            evaluation_data = json.loads(cleaned_response)
+        except json.JSONDecodeError as e:  # Using the correct JSONDecodeError
+            return jsonify({
+                "error": "Failed to parse evaluation response",
+                "details": str(e),
+                "raw_response": response.text
+            }), 500
+
+        return jsonify({"comparison_result": evaluation_data})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
