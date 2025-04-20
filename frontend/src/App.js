@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home"
 import { AppContextProvider } from "./contexts/AppContext";
 import AskAI from "./pages/AskAI";
-import Logout from "./pages/Logout";
 import Profile from "./pages/Profile";
+import LoginRegister from "./components/LoginRegister";
 
 const App = () => {
   return (
@@ -24,7 +24,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/ask-ai" element={<AskAI />} />
           <Route path="/profile" element={<Profile />}/>
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/login" element={<LoginRegister />} />
+          <Route path="/register" element={<LoginRegister />} />
         </Routes>
       </div>
     </div>

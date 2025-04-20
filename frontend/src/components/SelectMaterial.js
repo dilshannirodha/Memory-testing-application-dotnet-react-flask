@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import FileUpload from "../components/FileUpload";
-import TextInput from "../components/TextInput";
-import ImageUpload from "./ImageUpload";
+
 
 const SelectMaterial = () => {
   const [mode, setMode] = useState("file"); // State to track the selected mode

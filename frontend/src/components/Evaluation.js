@@ -41,7 +41,7 @@ const Evaluation = () => {
   }, [text, userAnswer, setEvaluation]);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" min-h-screen">
       
       <div className=" mx-auto bg-white p-6 rounded-lg ">
         <h2 className="text-xl font-semibold mb-4">Evaluation Results</h2>

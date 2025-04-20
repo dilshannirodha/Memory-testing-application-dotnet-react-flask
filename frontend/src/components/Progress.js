@@ -15,7 +15,6 @@ const Progress = () => {
     suggestions = []
   } = evaluation;
 
-  // Create circular progress components for each score
   const ScoreCircle = ({ value, label, size = "md" }) => {
     const sizes = {
       sm: { outer: 80, inner: 30, stroke: 6 },
@@ -23,7 +22,7 @@ const Progress = () => {
       lg: { outer: 120, inner: 50, stroke: 10 }
     };
     
-    const { outer, inner, stroke } = sizes[size];
+    const { outer,  stroke } = sizes[size];
     const radius = (outer - stroke) / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (value / 100) * circumference;
@@ -32,7 +31,6 @@ const Progress = () => {
       <div className="flex flex-col items-center">
         <div className="relative" style={{ width: outer, height: outer }}>
           <svg className="w-full h-full" viewBox={`0 0 ${outer} ${outer}`}>
-            {/* Background circle */}
             <circle
               cx={outer / 2}
               cy={outer / 2}
@@ -41,7 +39,6 @@ const Progress = () => {
               stroke="#e0e0e0"
               strokeWidth={stroke}
             />
-            {/* Progress circle */}
             <circle
               cx={outer / 2}
               cy={outer / 2}
@@ -76,7 +73,6 @@ const Progress = () => {
 
   return (
     <div className="p-6 space-y-8">
-      {/* Overall Score */}
       <div className="text-center">
         <h2 className="text-2xl font-bold mb-6">Performance Evaluation</h2>
         <div className="flex justify-center">
@@ -88,7 +84,6 @@ const Progress = () => {
         </div>
       </div>
 
-      {/* Detailed Scores Grid */}
       <div className="bg-white p-6 rounded-xl shadow-md">
         <h3 className="text-xl font-semibold mb-6 text-center">Detailed Metrics</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -103,9 +98,7 @@ const Progress = () => {
         </div>
       </div>
 
-      {/* Feedback Sections */}
       <div className="space-y-6">
-        {/* Strengths */}
         {strengths.length > 0 && (
           <div className="bg-green-50 p-5 rounded-xl border border-green-200">
             <h3 className="text-lg font-semibold text-green-800 mb-3 flex items-center">
@@ -123,7 +116,6 @@ const Progress = () => {
           </div>
         )}
 
-        {/* Suggestions */}
         {suggestions.length > 0 && (
           <div className="bg-blue-50 p-5 rounded-xl border border-blue-200">
             <h3 className="text-lg font-semibold text-blue-800 mb-3 flex items-center">
@@ -141,7 +133,6 @@ const Progress = () => {
           </div>
         )}
 
-        {/* Missing Points */}
         {missing_key_points.length > 0 && (
           <div className="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
             <h3 className="text-lg font-semibold text-yellow-800 mb-3 flex items-center">
@@ -159,7 +150,6 @@ const Progress = () => {
           </div>
         )}
 
-        {/* Incorrect Statements */}
         {incorrect_statements.length > 0 && (
           <div className="bg-red-50 p-5 rounded-xl border border-red-200">
             <h3 className="text-lg font-semibold text-red-800 mb-3 flex items-center">

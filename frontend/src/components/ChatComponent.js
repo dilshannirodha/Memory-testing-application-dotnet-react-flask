@@ -18,19 +18,16 @@ const ChatComponent = () => {
     setError("");
 
     try {
-      // Add the user's message to the chat
       setMessages((prev) => [...prev, { role: "user", content: prompt }]);
 
-      // Send the prompt to the backend
       const res = await axios.post("http://127.0.0.1:5001/generate", { prompt });
 
-      // Add the AI's response to the chat
       setMessages((prev) => [...prev, { role: "ai", content: res.data.generated_text }]);
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
     } finally {
       setLoading(false);
-      setPrompt(""); // Clear the input field
+      setPrompt(""); 
     }
   };
 

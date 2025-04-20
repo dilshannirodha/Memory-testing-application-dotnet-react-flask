@@ -1,9 +1,12 @@
 import React from 'react'
+import EvaluationChart from '../components/EvaluationChart'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div>
+      <EvaluationChart />
+    </div>
   )
-}
+} ;
 
 export default Profile

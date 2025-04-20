@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import AppContext from "../contexts/AppContext"; 
-import TimeSelector from "../components/TimeSelector";
 import SelectMaterial from "../components/SelectMaterial";
 import PDFViewer from "../components/PDFViewer";
 import AnswerComponent from "../components/AnswerComponent";
 import StartComponent from "../components/StartComponent";
 import Evaluation from "../components/Evaluation";
 const Home = () => {
-  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setShowTimer,showTimer, setStart} = useContext(AppContext);
+  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setStart} = useContext(AppContext);
   
 
 
@@ -24,7 +23,6 @@ const Home = () => {
     setStart(false);
     setSelectpdf(true);
     setShowPDF(false);
-    setShowTimer(false);
     setShowAnswerComponent(false);
     setSubmitted(false);
     setFinished(false);
@@ -43,13 +41,12 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundImage: "url('/path-to-image.jpg')"}}>
       
-      <div className="flex">
+      <div className="flex justify-center">
 
         
         {showStartComponent && (<StartComponent />)}
         { selectpdf && ( <SelectMaterial />)}
         { showPDF && ( <PDFViewer />)}
-       { showTimer && (<TimeSelector />) }
         {showAnswerComponent && ( <AnswerComponent />)}
         {submitted && (<Evaluation/>)}
       </div>
