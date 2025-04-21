@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useContext  } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../contexts/AppContext";
+import { LogIn, UserPlus } from "lucide-react";
 
 const LoginRegister = () => {
-    const {setIsLoggedIn} = useContext(AppContext);
+  const { setIsLoggedIn } = useContext(AppContext);
 
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -30,10 +31,13 @@ const LoginRegister = () => {
       const response = await axios.post(url, payload);
 
       if (isLogin) {
-        const { token } = response.data;
-        setIsLoggedIn(true);
+        console.log("Login response:", response.data);
+        const { token, userId } = response.data;
+
         localStorage.setItem("token", token);
-        navigate("/"); 
+        localStorage.setItem("id", userId.toString());
+        navigate("/");
+        setIsLoggedIn(true);
       } else {
         alert("Registration successful. Please login.");
         setIsLogin(true);
@@ -48,7 +52,17 @@ const LoginRegister = () => {
     <div className="flex justify-center items-center min-h-screen ">
       <div className="bg-white p-8 rounded-2xl  w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-700">
-          {isLogin ? "Login" : "Register"}
+          {isLogin ? (
+            <>
+              <LogIn className="inline-block w-12 h-12 text-blue-600" />
+              {" Login"}
+            </>
+          ) : (
+            <>
+              <UserPlus className="inline-block w-12 h-12 text-blue-600" />
+              {" Register"} {" Login"}
+            </>
+          )}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -59,7 +73,7 @@ const LoginRegister = () => {
               placeholder="Username"
               value={form.username}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none "
               required
             />
           )}
@@ -70,7 +84,7 @@ const LoginRegister = () => {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none "
             required
           />
 
@@ -80,7 +94,7 @@ const LoginRegister = () => {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none "
             required
           />
 

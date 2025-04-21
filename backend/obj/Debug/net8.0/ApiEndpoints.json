@@ -34,7 +34,7 @@
   {
     "ContainingType": "backend.Controllers.EvaluationController",
     "Method": "GetByUserId",
-    "RelativePath": "api/Evaluation/by-result/{UserId}",
+    "RelativePath": "api/Evaluation/results/{UserId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

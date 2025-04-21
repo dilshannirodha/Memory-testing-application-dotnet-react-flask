@@ -26,13 +26,13 @@ namespace backend.Services.Implementations
             return _mapper.Map<IEnumerable<GetEvaluationsDTO>>(evaluations);
         }
 
-      
 
-        public async Task<SaveEvaluationRequest> SaveAsync(SaveEvaluationRequest request)
+
+        public async Task SaveAsync(SaveEvaluationRequest request)
         {
             var evaluation = new EvaluationResult
             {
-                UserId = request.UserId, 
+                UserId = request.UserId,
                 OverallScore = request.OverallScore,
                 ContentAccuracy = request.ContentAccuracy,
                 Coverage = request.Coverage,
@@ -43,7 +43,7 @@ namespace backend.Services.Implementations
             };
 
             await _repository.AddAsync(evaluation);
-            return _mapper.Map<SaveEvaluationRequest>(evaluation);
         }
+
     }
 }

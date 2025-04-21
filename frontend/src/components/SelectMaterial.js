@@ -3,7 +3,7 @@ import FileUpload from "../components/FileUpload";
 
 
 const SelectMaterial = () => {
-  const [mode, setMode] = useState("file"); // State to track the selected mode
+  const [mode] = useState("file"); 
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -13,16 +13,7 @@ const SelectMaterial = () => {
 
     
       <div className="flex justify-center space-x-4 mb-6">
-        <button
-          onClick={() => setMode("file")}
-          className={`px-4 py-2 rounded-md ${
-            mode === "file"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-          } transition duration-300`}
-        >
-          PDF
-        </button>
+        
         
       </div>
 

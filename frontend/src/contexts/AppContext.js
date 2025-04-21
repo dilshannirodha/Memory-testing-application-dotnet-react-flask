@@ -17,6 +17,8 @@ export const AppContextProvider = ({ children }) => {
   const [submitted, setSubmitted] = useState(false);
   const [userAnswer,setUserAnswer] = useState("");
   const [evaluation, setEvaluation ]  = useState();
+  const [successUpload, setSuccessUpload] = useState(false);
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   
 
@@ -36,7 +38,8 @@ export const AppContextProvider = ({ children }) => {
       submitted, setSubmitted,
       userAnswer, setUserAnswer,
       evaluation, setEvaluation,
-      isLoggedIn, setIsLoggedIn
+      isLoggedIn, setIsLoggedIn,
+      successUpload, setSuccessUpload
         }}>
       {children}
     </AppContext.Provider>

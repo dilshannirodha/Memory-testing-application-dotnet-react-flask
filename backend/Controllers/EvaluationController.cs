@@ -27,8 +27,8 @@ namespace backend.Controllers
         {
             try
             {
-                var result = await _evaluationService.SaveAsync(request);
-                return Ok(result);
+                await _evaluationService.SaveAsync(request);
+                return Ok(new { message = "Evaluation saved successfully." });
             }
             catch (Exception ex)
             {
@@ -36,7 +36,8 @@ namespace backend.Controllers
             }
         }
 
-        [HttpGet("by-result/{UserId}")]
+
+        [HttpGet("results/{UserId}")]
         [Authorize]
         public async Task<IActionResult> GetByUserId(int UserId)
         {

@@ -5,6 +5,7 @@ const Profile = () => {
   return (
     <div>
       <EvaluationChart />
+
     </div>
   )
 } ;

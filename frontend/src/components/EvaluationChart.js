@@ -13,8 +13,9 @@ const EvaluationProgressChart = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
-    axios.get('http://localhost:5000/api/Evaluation/by-result/1', {
+ const id = parseInt(localStorage.getItem('id'), 10);
+ 
+    axios.get(`http://localhost:5000/api/Evaluation/results/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

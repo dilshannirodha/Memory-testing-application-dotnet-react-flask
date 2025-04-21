@@ -1,20 +1,19 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import AppContext from "../contexts/AppContext";
+import Spinner from "./Spinner";
+import { CheckCircle , UploadCloud} from "lucide-react";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { setImages,setShowButtons } = useContext(AppContext); // Use context to set images
-  const [success, setSuccess] = useState(false);
+  const { setImages,setShowButtons, successUpload, setSuccessUpload } = useContext(AppContext); // Use context to set images
 
-  // Handle file upload
   const handleFileUpload = (e) => {
     const uploadedFile = e.target.files[0];
     setFile(uploadedFile);
   };
 
-  // Submit the uploaded file to the backend
   const handleFileSubmit = async () => {
     if (!file) {
       alert("Please select a PDF file.");
@@ -41,7 +40,8 @@ const FileUpload = () => {
       console.error("Error:", error);
       alert("An error occurred while uploading the file.");
     } finally {
-      setSuccess(true);
+      setSuccessUpload(true);
+      setLoading(false);
       
     }
 
@@ -50,15 +50,18 @@ const FileUpload = () => {
 
   return (
     <div className="p-6  min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-bold text-center mb-6">PDF {success? "Upload Successful !": "Upload"}</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">
+        
+        {successUpload? ( <CheckCircle className="text-green-500 w-[50px] h-[50px]"  />):
+                  ( <UploadCloud className="w-[50px] h-[50px] text-blue-500" />)}</h1>
       <div className="bg-white p-8 rounded-lg  w-full max-w-md">
-        <input
+        <input 
           type="file"
           accept="application/pdf"
           onChange={handleFileUpload}
           className="mb-4 w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {!success ? (
+        {!successUpload ? (
             <button
             onClick={handleFileSubmit}
             disabled={loading}
@@ -75,6 +78,10 @@ const FileUpload = () => {
         
         
       </div>
+      {loading === true ? (<Spinner />): ""}
+       
+        
+      
     </div>
   );
 };

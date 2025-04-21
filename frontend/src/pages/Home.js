@@ -5,9 +5,12 @@ import PDFViewer from "../components/PDFViewer";
 import AnswerComponent from "../components/AnswerComponent";
 import StartComponent from "../components/StartComponent";
 import Evaluation from "../components/Evaluation";
+import { useNavigate } from "react-router-dom";
+
+
 const Home = () => {
-  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setStart} = useContext(AppContext);
-  
+  const {setSelected,setFinished,setSubmitted,submitted,finished,showAnswerComponent, setShowAnswerComponent,selected,showButtons,showStartComponent,selectpdf, setSelectpdf,showPDF, setShowPDF, setStart, successUpload, setSuccessUpload} = useContext(AppContext);
+  const navigate = useNavigate();
 
 
   const startReading = () =>{
@@ -15,6 +18,7 @@ const Home = () => {
     setShowAnswerComponent(false);
     setSelectpdf(false);
     setShowPDF(true);
+    setSuccessUpload(false);
    
     
   }
@@ -26,6 +30,8 @@ const Home = () => {
     setShowAnswerComponent(false);
     setSubmitted(false);
     setFinished(false);
+    navigate("/"); 
+
   }
 
  
@@ -55,7 +61,7 @@ const Home = () => {
         <div className="fixed bottom-0  p-4">
         <div className="flex gap-4 justify-center">
           
-          {!selected  && (
+          {successUpload && (
             <button
             className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             onClick={startReading} 
@@ -77,7 +83,7 @@ const Home = () => {
             className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             onClick={uploadMaterial} 
           >
-            Upload Material
+            Upload another pdf
           </button>
         </div>
         </div>

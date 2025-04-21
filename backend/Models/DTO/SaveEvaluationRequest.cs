@@ -2,8 +2,8 @@
 {
     public class SaveEvaluationRequest
     {
+      
         public int UserId { get; set; }
-
         public int OverallScore { get; set; }
         public int ContentAccuracy { get; set; }
         public int Coverage { get; set; }
