@@ -164,7 +164,6 @@ D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\bac
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.backend.props
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\staticwebassets.pack.json
-D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\backend.csproj.Up2Date
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\backend.dll
 D:\github projects\finalYearProject--memory-recaller-app-dotnet-react-python\backend\obj\Debug\net8.0\refint\backend.dll

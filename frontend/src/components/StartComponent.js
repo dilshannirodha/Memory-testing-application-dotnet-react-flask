@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
+import Speech from './Speech';
 
 const StartComponent = () => {
   const { setSelectpdf, setShowStartComponent, showStartComponent } = useContext(AppContext);
@@ -11,6 +12,7 @@ const StartComponent = () => {
 
   return (
     <div className="flex flex-col items-center p-6 bg-white rounded-lg ">
+     
       <p className="text-2xl font-semibold text-gray-800 mb-6">Start Your memory test!</p>
       <button
         onClick={visibility}
@@ -18,6 +20,7 @@ const StartComponent = () => {
       >
         File Upload
       </button>
+
     </div>
   );
 };

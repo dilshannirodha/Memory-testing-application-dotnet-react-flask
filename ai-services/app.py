@@ -13,16 +13,35 @@ import os
 import shutil
 import json
 from pdf2image import convert_from_path
+from openai import OpenAI
 
 
 app = Flask(__name__)
 CORS(app)
 
-genai.configure(api_key="AIzaSyB2uuD4ibj4isIoA_QkdsyIKdccNhAP05g")
-model = genai.GenerativeModel("gemini-1.5-pro")
-models = genai.list_models()
-for m in models:
-    print(m.name)
+client = OpenAI(
+    api_key="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"
+)
+
+@app.route('/openai', methods=['POST'])
+def generate_completion():
+    data = request.json
+    user_prompt = data.get("prompt", "")
+
+    if not user_prompt:
+        return jsonify({"error": "No prompt provided"}), 400
+
+    try:
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": user_prompt}
+            ]
+        )
+        response_text = completion.choices[0].message.content
+        return jsonify({"response": response_text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/generate', methods=['POST'])
 def generate_text():
@@ -33,14 +52,24 @@ def generate_text():
         return jsonify({"error": "Prompt is required"}), 400
 
     try:
-        response = model.generate_content(prompt)
-        return jsonify({"generated_text": response.text})
+        # Call OpenAI API to generate text
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        generated_text = response.choices[0].message.content.strip()
+        return jsonify({"generated_text": generated_text})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
 @app.route('/compare', methods=['POST'])
 def compare_answer():
     data = request.json
+    
     study_material = data.get("study_material", "")
     user_answer = data.get("user_answer", "")
 
@@ -49,58 +78,66 @@ def compare_answer():
 
     try:
         prompt = f"""
-        Perform a comprehensive evaluation of the user's answer against the study material.
-        Provide numeric scores (0-100) for each of the following criteria:
-        
-        Evaluation Criteria:
-        1. Content Accuracy (Weight: 30%): How factually correct the answer is
-        2. Coverage (Weight: 25%): Percentage of key points covered
-        3. Clarity (Weight: 15%): How clearly ideas are expressed
-        4. Structure (Weight: 10%): Logical organization of information
-        5. Terminology (Weight: 10%): Proper use of technical terms
-        6. Originality (Weight: 10%): Demonstration of independent thought
-        
-        Study Material:
-        {study_material}
+Perform a comprehensive evaluation of the user's answer against the study material.
+Provide numeric scores (0-100) for each of the following criteria:
 
-        User Answer:
-        {user_answer}
+Evaluation Criteria:
+1. Content Accuracy (Weight: 30%): How factually correct the answer is
+2. Coverage (Weight: 25%): Percentage of key points covered
+3. Clarity (Weight: 15%): How clearly ideas are expressed
+4. Structure (Weight: 10%): Logical organization of information
+5. Terminology (Weight: 10%): Proper use of technical terms
+6. Originality (Weight: 10%): Demonstration of independent thought
 
-        Response Format (JSON):
-        {{
-            "overall_score": 0-100,
-            "detailed_scores": {{
-                "content_accuracy": 0-100,
-                "coverage": 0-100,
-                "clarity": 0-100,
-                "structure": 0-100,
-                "terminology": 0-100,
-                "originality": 0-100
-            }},
-            "missing_key_points": ["list", "of", "missing", "concepts"],
-            "incorrect_statements": ["list", "of", "errors"],
-            "strengths": ["list", "of", "what", "was", "done", "well"],
-            "suggestions": ["specific", "improvement", "suggestions"],
-            "comparison_breakdown": "Detailed textual analysis"
-        }}
-        """
+Study Material:
+{study_material}
 
-        response = model.generate_content(prompt)
+User Answer:
+{user_answer}
 
-        cleaned_response = response.text.strip()
-        if cleaned_response.startswith('```json'):
-            cleaned_response = cleaned_response[7:]  # Remove ```json
-        if cleaned_response.endswith('```'):
-            cleaned_response = cleaned_response[:-3]  # Remove ```
-        cleaned_response = cleaned_response.strip()
-        
+Response Format (JSON):
+{{
+    "overall_score": 0-100,
+    "detailed_scores": {{
+        "content_accuracy": 0-100,
+        "coverage": 0-100,
+        "clarity": 0-100,
+        "structure": 0-100,
+        "terminology": 0-100,
+        "originality": 0-100
+    }},
+    "missing_key_points": ["list", "of", "missing", "concepts"],
+    "incorrect_statements": ["list", "of", "errors"],
+    "strengths": ["list", "of", "what", "was", "done", "well"],
+    "suggestions": ["specific", "improvement", "suggestions"],
+    "comparison_breakdown": "Detailed textual analysis"
+}}
+"""
+
+        # Call OpenAI Chat Completion
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        content = response.choices[0].message.content.strip()
+
+        # Clean the response if wrapped in markdown
+        if content.startswith("```json"):
+            content = content[7:]
+        if content.endswith("```"):
+            content = content[:-3]
+        content = content.strip()
+
         try:
-            evaluation_data = json.loads(cleaned_response)
-        except json.JSONDecodeError as e:  # Using the correct JSONDecodeError
+            evaluation_data = json.loads(content)
+        except json.JSONDecodeError as e:
             return jsonify({
                 "error": "Failed to parse evaluation response",
                 "details": str(e),
-                "raw_response": response.text
+                "raw_response": content
             }), 500
 
         return jsonify({"comparison_result": evaluation_data})
